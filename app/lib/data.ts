@@ -11,15 +11,21 @@ import {
 import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from 'next/cache';
 
+
+const sleep = (timeMS: number) => {
+  return new Promise((resolve) => setTimeout(resolve, timeMS));
+}
+
 export async function fetchRevenue() {
   noStore();
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
 
   try {
-    // Artificially delay a reponse for demo purposes.
-    // Don't do this in real life :)
+
     console.log('Fetching revenue data...');
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    // DELAY RESPONSE FOR TESTING PURPOSES
+    await sleep(3000);
 
     const data = await sql<Revenue>`SELECT * FROM revenue`;
 
@@ -33,6 +39,10 @@ export async function fetchRevenue() {
 }
 
 export async function fetchLatestInvoices() {
+
+  // DELAY RESPONSE FOR TESTING PURPOSES
+  await sleep(10000);
+
   noStore();
   try {
     const data = await sql<LatestInvoiceRaw>`
