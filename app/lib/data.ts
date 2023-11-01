@@ -41,7 +41,7 @@ export async function fetchRevenue() {
 export async function fetchLatestInvoices() {
 
   // DELAY RESPONSE FOR TESTING PURPOSES
-  await sleep(10000);
+  await sleep(2000);
 
   noStore();
   try {
