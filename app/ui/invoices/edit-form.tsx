@@ -10,6 +10,7 @@ import {
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
 import { updateInvoice } from "@/app/lib/actions";
+import { useFormState } from "react-dom";
 
 export default function EditInvoiceForm({
   invoice,
@@ -18,11 +19,12 @@ export default function EditInvoiceForm({
   invoice: InvoiceForm;
   customers: CustomerField[];
 }) {
-
+  const initialState = { message: null, errors: {} };
   const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
+  const [state, dispatch] = useFormState(updateInvoiceWithId, initialState);
 
   return (
-    <form action={updateInvoiceWithId}>
+    <form action={dispatch}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Invoice ID */}
         <input type="hidden" name="id" value={invoice.id} />
@@ -91,7 +93,7 @@ export default function EditInvoiceForm({
                   htmlFor="pending"
                   className="ml-2 flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-300"
                 >
-                  Pending <ClockIcon className="h-4 w-4" />
+                  Pendiente <ClockIcon className="h-4 w-4" />
                 </label>
               </div>
               <div className="flex items-center">
@@ -107,7 +109,7 @@ export default function EditInvoiceForm({
                   htmlFor="paid"
                   className="ml-2 flex items-center gap-1.5 rounded-full bg-orange-300 px-3 py-1.5 text-xs font-medium text-white dark:text-gray-100"
                 >
-                  Paid <CheckIcon className="h-4 w-4" />
+                  Pagado <CheckIcon className="h-4 w-4" />
                 </label>
               </div>
             </div>
